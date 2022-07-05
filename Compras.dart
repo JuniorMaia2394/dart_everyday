@@ -1,9 +1,9 @@
 import 'dart:io';
 
+List<String> list_compras = []; //variavel global
+
 main() {
   print(' ===========   BEM-VINDO A LOJA DE COMPRAS  ===========');
-
-  List<String> list_compras = [];
   bool condicao = true;
 
   while (condicao) {
@@ -17,43 +17,58 @@ main() {
     String? input_opcao = stdin.readLineSync();
     if (input_opcao == '0') {
       list_compras.length == 0 ? print(' NÃO TEM PRODUTOS!\n') : '';
-      print(' ===========  ATÉ BREVE!!!  =========== ');
-      condicao = false;
+      print('=====================================');
     } else if (input_opcao == '1') {
-      print('ADICONE O  PRODUTO: ');
-      String? input_produto = stdin.readLineSync();
-      list_compras.add(input_produto!);
+      adicionarProduto(list_compras);
     } else if (input_opcao == '2') {
       if (list_compras.length == 0) {
         print('LISTA VAZIA!!! \n');
       } else {
-        print('REMOVA O PRODUTO: ');
-        String? input_produto_remove = stdin.readLineSync();
-        list_compras.remove(input_produto_remove);
+        removerProduto(list_compras);
       }
     } else if (input_opcao == '3') {
       if (list_compras.length == 0) {
         print('LISTA VAZIA!!! \n');
+        print('=====================================');
       } else {
         print('LISTA DE PRODUTO(s): ');
-        for (var i = 0; i < list_compras.length; i++) {
-          print(list_compras[i].toUpperCase() + '\n');
-        }
+        imprimirProdutos(list_compras);
       }
     } else if (input_opcao == '4') {
       print('FINALIZANDO COMPRAS.... \n');
+      print('=====================================');
 
       list_compras.length == 0
           ? print('LISTA DE COMPRAS VAZIA!!\n')
           : print('LISTA DE COMPRAS:\n');
 
-      for (var i = 0; i < list_compras.length; i++) {
-        print(list_compras[i].toUpperCase());
-      }
+      imprimirProdutos(list_compras);
       print('QUANTIDADE:  ' + list_compras.length.toString() + '\n');
       condicao = false;
     } else {
       print(' OPÇÃO INVÁLIDA!! \n');
+      print('=====================================');
     }
   }
+}
+
+imprimirProdutos(list_compras) {
+  for (var i = 0; i < list_compras.length; i++) {
+    print(list_compras[i].toUpperCase() + '\n');
+  }
+}
+
+adicionarProduto(list_compras) {
+  print('ADICONE O  PRODUTO: ');
+  String? input_produto = stdin.readLineSync();
+  list_compras.add(input_produto!);
+  print('=====================================');
+  // print("\x1B[2J\x1B[0:0H");
+}
+
+removerProduto(list_compras) {
+  print('REMOVA O PRODUTO: ');
+  String? input_produto_remove = stdin.readLineSync();
+  list_compras.remove(input_produto_remove);
+  print('=====================================');
 }
